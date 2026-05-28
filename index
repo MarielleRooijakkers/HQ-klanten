@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HQ — Jouw Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --warm: #C1A37F;
+    --warm-soft: #D4BFA0;
+    --goud: #9F926A;
+    --goud-soft: #B8AC88;
+    --accent: #C49200;
+    --accent-soft: #D4A820;
+    --white: #FFFFFF;
+    --black: #000000;
+    --bg: #FAF7F2;
+    --card: #FFFFFF;
+    --border: #E8E0D1;
+    --border-soft: #F0E8D8;
+    --creme-light: #F5F0E6;
+    --text: #1A1A1A;
+    --text-soft: #5C5852;
+    --muted: #8F8A82;
+    --success: #2D6A4F;
+    --success-bg: #E8F5EE;
+    --warn: #B8860B;
+    --warn-bg: #FDF5E0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  /* HEADER */
+  header {
+    background: var(--black);
+    padding: 28px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid var(--accent);
+  }
+  .brand {
+    font-family: 'League Spartan', sans-serif;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .brand em {
+    color: var(--warm);
+    font-style: normal;
+    font-weight: 500;
+  }
+  .brand .user-name-display {
+    cursor: pointer;
+    border-bottom: 1px dashed var(--warm-soft);
+    transition: border-color 0.15s;
+  }
+  .brand .user-name-display:hover {
+    border-color: var(--accent);
+  }
+  .tagline {
+    color: var(--warm-soft);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .header-right {
+    text-align: right;
+    color: var(--warm-soft);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .date-line {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+  }
+  .sync-line {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--goud-soft);
+    margin-top: 4px;
+  }
+  /* NAME SETUP */
+  .name-setup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 20px;
+  }
+  .name-setup-box {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+  .name-setup-box h2 {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 26px;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .name-setup-box p {
+    color: var(--text-soft);
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .name-setup-box input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .name-setup-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .name-setup-box .btn {
+    width: 100%;
+  }
+  /* CONTAINER */
+  .wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 32px 80px;
+  }
+  /* FOCUS STRIP */
+  .focus-strip {
+    background: var(--goud);
+    color: white;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus-strip::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 180px;
+    height: 100%;
+    background: white;
+    opacity: 0.08;
+    transform: skewX(-20deg) translateX(60px);
+  }
+  .focus-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .focus-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+  .focus-meta {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .focus-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .focus-item {
+    background: var(--creme-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: 68px;
+  }
+  .focus-item:hover { background: #EDE7D9; }
+  .focus-item.done { opacity: 0.5; }
+  .focus-item.done .focus-text { text-decoration: line-through; }
+  .focus-num {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 28px;
+    color: var(--black);
+    line-height: 0.9;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .focus-text {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--black);
+    font-weight: 400;
+    flex: 1;
+  }
+  .focus-empty {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 13px;
+  }
+  .focus-edit-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--warm-soft);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .focus-edit-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--accent);
+  }
+  /* DUMP ZONE */
+  .dump-zone {
+    background: linear-gradient(135deg, var(--creme-light) 0%, #FFFFFF 100%);
+    border: 2px dashed var(--accent);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+  }
+  .dump-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .dump-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 20px;
+    color: var(--black);
+    font-weight: 700;
+  }
+  .dump-sub {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .dump-input {
+    width: 100%;
+    min-height: 90px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    color: var(--text);
+  }
+  .dump-input:focus { outline: none; border-color: var(--accent); }
+  .dump-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dump-hint {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .dump-hint code {
+    background: var(--creme-light);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--black);
+    font-weight: 600;
+  }
+  /* BUTTONS */
+  .btn {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--black); color: white; }
+  .btn-primary:hover { background: #333; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: var(--black); border-color: var(--black); }
+  .add-btn {
+    background: transparent;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 12px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .add-btn:hover { background: var(--creme-light); color: var(--black); border-color: var(--black); border-style: solid; }
+  /* MAIN GRID */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .card-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 20px;
+    color: var(--black);
+    letter-spacing: 0.3px;
+    font-weight: 700;
+  }
+  .card-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .card-count {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  /* PROJECTS */
+  .project {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  .project:last-child { border-bottom: none; }
+  .project-main { min-width: 0; }
+  .project-name {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 17px;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .project-next {
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.45;
+  }
+  .project-next .label {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .status-pill {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-active { background: #F0EDE5; color: var(--black); }
+  .status-pending { background: var(--warn-bg); color: var(--warn); }
+  .status-done { background: var(--success-bg); color: var(--success); }
+  .status-paused { background: #F0F0F0; color: var(--muted); }
+  /* CLIENTS */
+  .client {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-soft);
+    cursor: pointer;
+  }
+  .client:last-child { border-bottom: none; }
+  .client-name {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+  .client-prog {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+  }
+  .client-action {
+    font-size: 12px;
+    color: var(--text-soft);
+    line-height: 1.4;
+  }
+  /* LOOPS — 2x4 GRID */
+  .loops-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .loop-field-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 180px;
+  }
+  .loop-field-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .loop-field-name {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--black);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .loop-field-count {
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--creme-light);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .loop-field-add {
+    background: transparent;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .loop-field-add:hover { background: var(--creme-light); }
+  /* LOOP ITEMS */
+  .loop {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: flex-start;
+  }
+  .loop:last-child { border-bottom: none; }
+  .loop-check {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--accent);
+    border-radius: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: white;
+    background: white;
+    transition: all 0.15s;
+  }
+  .loop-check.done { background: var(--accent); }
+  .loop-text {
+    font-size: 12px;
+    color: var(--text-soft);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .loop.done .loop-text {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .loop-del {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0 2px;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .loop:hover .loop-del { opacity: 1; }
+  .loop-del:hover { color: red; }
+  /* BOTTOM ROW: Beslissingen + Content — horizontaal */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  /* DECISIONS */
+  .decision {
+    padding: 12px 14px;
+    background: var(--creme-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .decision:last-child { margin-bottom: 0; }
+  .decision-date {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .decision-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  /* CONTENT IDEAS */
+  .content-item {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: center;
+  }
+  .content-item:last-child { border-bottom: none; }
+  /* WISHLIST */
+  .wishlist-section { margin-top: 24px; }
+  /* RITUAL */
+  .ritual {
+    margin-top: 36px;
+    padding: 28px 32px;
+    background: var(--black);
+    color: white;
+    border-radius: 14px;
+    text-align: center;
+  }
+  .ritual-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .ritual-text {
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto;
+    color: var(--warm-soft);
+  }
+  /* MODAL */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 14px;
+    max-width: 580px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal-head {
+    padding: 22px 26px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 22px;
+    color: var(--black);
+    font-weight: 700;
+  }
+  .modal-body { padding: 22px 26px; }
+  .modal-foot {
+    padding: 16px 26px 22px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: white;
+  }
+  .field textarea { min-height: 70px; resize: vertical; }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--accent);
+  }
+  .close-x {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1;
+  }
+  .close-x:hover { color: var(--black); }
+  .empty {
+    text-align: center;
+    padding: 16px 10px;
+    color: var(--muted);
+    font-size: 12px;
+    font-style: italic;
+  }
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--black);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 200;
+    max-width: 320px;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 1100px) {
+    .loops-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .main-grid, .bottom-row { grid-template-columns: 1fr; }
+    .loops-grid { grid-template-columns: 1fr; }
+    .focus-list { grid-template-columns: 1fr; }
+    .wrap { padding: 20px; }
+    header { padding: 20px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .header-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAME SETUP OVERLAY -->
+<div class="name-setup" id="name-setup" style="display: none;">
+  <div class="name-setup-box">
+    <h2>Welkom bij je HQ</h2>
+    <p>Personaliseer je dashboard. Je kunt dit later altijd aanpassen door op je naam of bedrijfsnaam te klikken.</p>
+    <input type="text" id="name-input" placeholder="Je voornaam" autofocus style="margin-bottom: 10px;">
+    <input type="text" id="biz-input" placeholder="Je bedrijfsnaam" style="margin-bottom: 16px;">
+    <button class="btn btn-primary" onclick="saveName()" style="width: 100%;">Start</button>
+  </div>
+</div>
+
+<header>
+  <div>
+    <div class="brand">HQ <em>· <span class="user-name-display" id="header-name" onclick="openNameEdit()" title="Klik om naam aan te passen"></span></em></div>
+    <div class="tagline"><span class="user-biz-display" id="header-biz" onclick="openNameEdit()" title="Klik om bedrijfsnaam aan te passen" style="cursor:pointer;border-bottom:1px dashed var(--warm-soft);"></span></div>
+    <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--goud-soft);margin-top:4px;opacity:0.6;">Powered by The Industry Playground</div>
+  </div>
+  <div class="header-right">
+    <div class="date-line" id="today-date"></div>
+    <div class="sync-line" id="sync-line">Laatst bewerkt —</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- FOCUS STRIP -->
+  <div class="focus-strip">
+    <div class="focus-head">
+      <div class="focus-title">Focus vandaag</div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <span class="focus-meta" id="focus-date-label"></span>
+        <button class="focus-edit-btn" onclick="openFocusEdit()">Bewerken</button>
+      </div>
+    </div>
+    <div class="focus-list" id="focus-list"></div>
+  </div>
+
+  <!-- BRAIN DUMP -->
+  <div class="dump-zone">
+    <div class="dump-head">
+      <div>
+        <div class="dump-title">Brain dump</div>
+        <div class="dump-sub">Gooi hier alles in wat in je hoofd zit — ik sorteer het</div>
+      </div>
+    </div>
+    <textarea class="dump-input" id="dump-input" placeholder="Typ los wat je kwijt wilt — idee, taak, klant-update, beslissing, alles door elkaar.
+
+Gebruik prefixes als je wilt sturen:
+#project Salespage afmaken
+#klant Lisa — follow-up call volgende week
+#leadpulls Nieuwe lead magnet maken
+#leadpool E-maillijst segmenteren
+#omzetmotor Lancering voorbereiden
+#winstmotor Upsell flow testen
+#clevel Kwartaalplanning maken
+#team Briefing voorbereiden
+#systeem Zapier automation fixen
+#prive Dokter afspraak maken
+#beslissing Geen nieuwe launches tot juni
+#focus Salespage V2 af
+#content Idee voor carousel over zichtbaarheid
+
+Geen prefix? Dan landt het in OVERIG inbox."></textarea>
+    <div class="dump-actions">
+      <div class="dump-hint">
+        Tip: <code>#project</code> <code>#klant</code> <code>#leadpulls</code> <code>#leadpool</code> <code>#omzetmotor</code> <code>#winstmotor</code> <code>#clevel</code> <code>#team</code> <code>#systeem</code> <code>#prive</code> <code>#beslissing</code> <code>#focus</code> <code>#content</code> — of laat leeg
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-ghost" onclick="document.getElementById('dump-input').value=''">Wissen</button>
+        <button class="btn btn-primary" onclick="processDump()">Verwerken</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: Projects + Clients -->
+  <div class="main-grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-label">Projecten</div>
+          <div class="card-title">Waar werk ik nu aan</div>
+        </div>
+        <div class="card-count" id="project-count">0 actief</div>
+      </div>
+      <div id="project-list"></div>
+      <button class="add-btn" onclick="openProjectEdit()">+ Nieuw project</button>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-label">Klanten</div>
+          <div class="card-title">Wie loopt waar</div>
+        </div>
+        <div class="card-count" id="client-count">0</div>
+      </div>
+      <div id="client-list"></div>
+      <button class="add-btn" onclick="openClientEdit()">+ Nieuwe klant</button>
+    </div>
+  </div>
+
+  <!-- OPEN LOOPS — 2x4 GRID -->
+  <div style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <div class="card-label">Open loops</div>
+      <div class="card-title" style="font-family: 'League Spartan', sans-serif; font-size: 20px; font-weight: 700;">Losse to-do's per veld</div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="card-count" id="loop-count">0 open</div>
+      <button class="add-btn" onclick="openLoopEdit('overig')" style="margin-top:0;">+ Loop toevoegen</button>
+    </div>
+  </div>
+  <div class="loops-grid" id="loops-grid"></div>
+
+  <!-- BOTTOM ROW: Beslissingen + Content vonken -->
+  <div class="bottom-row">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-label">Beslissingen & inzichten</div>
+          <div class="card-title">Niet vergeten</div>
+        </div>
+        <div class="card-count" id="decision-count">0</div>
+      </div>
+      <div id="decision-list"></div>
+      <button class="add-btn" onclick="openDecisionEdit()">+ Vastleggen</button>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-label">Content ideeën</div>
+          <div class="card-title">Losse vonken</div>
+        </div>
+        <div class="card-count" id="content-count">0</div>
+      </div>
+      <div id="content-list"></div>
+      <button class="add-btn" onclick="openContentEdit()">+ Idee toevoegen</button>
+    </div>
+  </div>
+
+  <!-- WISHLIST -->
+  <div class="card wishlist-section">
+    <div class="card-head">
+      <div>
+        <div class="card-label">Wishlist & vonken</div>
+        <div class="card-title">Dromen zonder druk</div>
+      </div>
+      <div style="font-size: 10px; color: var(--accent); letter-spacing: 1px;">PARKING LOT</div>
+    </div>
+    <div style="margin-bottom: 12px; font-size: 12px; color: var(--muted); font-style: italic;">
+      Voor alle briljante ideeën, automatiseringen, upgrades en "ooit wil ik..." momenten. Geen druk — pure vonken parking.
+    </div>
+    <textarea
+      id="wishlist-text"
+      placeholder="Typ gewoon los wat je brein bedenkt..."
+      style="width: 100%; min-height: 100px; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 1.5; background: var(--creme-light); resize: vertical;"
+      oninput="saveWishlist()"
+    ></textarea>
+    <div style="margin-top: 6px; font-size: 10px; color: var(--muted); text-align: right;">Auto-saved</div>
+  </div>
+
+  <!-- RITUAL -->
+  <div class="ritual">
+    <div class="ritual-label">Dagelijks ritueel</div>
+    <div class="ritual-text">
+      's Ochtends: open HQ, kies je drie focus-items.<br>
+      Einde dag: dump alles wat in je hoofd zit in de brain dump. Laat het sorteren.<br>
+      Niets handmatig overzetten. Dit is een filter, geen archief.
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Bewerken</div>
+      <button class="close-x" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal()">Annuleren</button>
+      <button class="btn btn-primary" id="modal-save" onclick="saveModal()">Opslaan</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== STATE ====================
+const STORE_KEY = 'tip_hq_client_v1';
+const LOOP_FIELDS = [
+  { key: 'leadpulls', name: 'Leadpulls' },
+  { key: 'leadpool', name: 'Leadpool' },
+  { key: 'omzetmotor', name: 'Omzetmotor' },
+  { key: 'winstmotor', name: 'Winstmotor' },
+  { key: 'clevel', name: 'C-level' },
+  { key: 'team', name: 'Team' },
+  { key: 'systeem', name: 'Systeem' },
+  { key: 'prive', name: 'Privé' }
+];
+
+function defaultLoops() {
+  const loops = {};
+  LOOP_FIELDS.forEach(f => {
+    loops[f.key] = { inbox: [], prio1: [], prio2: [], prio3: [] };
+  });
+  loops.overig = { inbox: [], prio1: [], prio2: [], prio3: [] };
+  return loops;
+}
+
+let state = {
+  userName: '',
+  bizName: '',
+  focus: ['', '', ''],
+  focusDone: [false, false, false],
+  projects: [],
+  clients: [],
+  loops: defaultLoops(),
+  decisions: [],
+  content: [],
+  wishlist: '',
+  lastUpdate: null
+};
+
+function save() {
+  state.lastUpdate = new Date().toISOString();
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); updateSyncLine(); }
+  catch(e) { toast('Opslaan mislukt'); }
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) {
+      const loaded = JSON.parse(raw);
+      state = { ...state, ...loaded };
+      if (!Array.isArray(state.focus) || state.focus.length !== 3) state.focus = ['','',''];
+      if (!Array.isArray(state.focusDone) || state.focusDone.length !== 3) state.focusDone = [false,false,false];
+      if (!Array.isArray(state.content)) state.content = [];
+      if (typeof state.wishlist !== 'string') state.wishlist = '';
+      if (typeof state.userName !== 'string') state.userName = '';
+      if (typeof state.bizName !== 'string') state.bizName = '';
+      // Ensure all loop fields exist
+      const def = defaultLoops();
+      Object.keys(def).forEach(k => {
+        if (!state.loops[k]) state.loops[k] = def[k];
+        if (!state.loops[k].inbox) state.loops[k].inbox = [];
+        if (!state.loops[k].prio1) state.loops[k].prio1 = [];
+        if (!state.loops[k].prio2) state.loops[k].prio2 = [];
+        if (!state.loops[k].prio3) state.loops[k].prio3 = [];
+      });
+    }
+  } catch(e) { console.error(e); }
+}
+
+function uid() { return Math.random().toString(36).slice(2, 10); }
+
+// ==================== NAME ====================
+function checkName() {
+  if (!state.userName) {
+    document.getElementById('name-setup').style.display = 'flex';
+    document.getElementById('name-input').focus();
+  }
+  document.getElementById('header-name').textContent = state.userName || 'Jouw naam';
+  document.getElementById('header-biz').textContent = state.bizName || 'Je bedrijfsnaam';
+}
+
+function saveName() {
+  const val = document.getElementById('name-input').value.trim();
+  const biz = document.getElementById('biz-input').value.trim();
+  if (!val) { toast('Vul je naam in'); return; }
+  state.userName = val;
+  state.bizName = biz;
+  save();
+  document.getElementById('name-setup').style.display = 'none';
+  document.getElementById('header-name').textContent = val;
+  document.getElementById('header-biz').textContent = biz || 'Je bedrijfsnaam';
+  toast('Welkom, ' + val + '!');
+}
+
+function openNameEdit() {
+  modalCtx = { type: 'name' };
+  document.getElementById('modal-title').textContent = 'Naam & bedrijf aanpassen';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field">
+      <label>Je naam</label>
+      <input type="text" id="edit-name" value="${escapeHtml(state.userName)}" autofocus>
+    </div>
+    <div class="field">
+      <label>Je bedrijfsnaam</label>
+      <input type="text" id="edit-biz" value="${escapeHtml(state.bizName)}" placeholder="Je bedrijfsnaam">
+    </div>
+  `;
+  openModal();
+}
+
+// Enter key in name setup
+document.addEventListener('DOMContentLoaded', () => {
+  const ni = document.getElementById('name-input');
+  if (ni) ni.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
+});
+
+// ==================== RENDER ====================
+function renderAll() {
+  renderFocus();
+  renderProjects();
+  renderClients();
+  renderLoops();
+  renderDecisions();
+  renderContent();
+  renderWishlist();
+  updateSyncLine();
+  renderDate();
+}
+
+function renderDate() {
+  const d = new Date();
+  const dagen = ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'];
+  const maanden = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+  const nl = `${dagen[d.getDay()]} ${d.getDate()} ${maanden[d.getMonth()]}`;
+  document.getElementById('today-date').textContent = nl;
+  document.getElementById('focus-date-label').textContent = nl;
+}
+
+function renderFocus() {
+  const list = document.getElementById('focus-list');
+  list.innerHTML = state.focus.map((text, i) => {
+    const empty = !text || !text.trim();
+    const done = state.focusDone[i];
+    return `
+      <div class="focus-item ${done ? 'done' : ''}" onclick="toggleFocus(${i})">
+        <div class="focus-num">${i+1}</div>
+        <div class="focus-text ${empty ? 'focus-empty' : ''}">${empty ? 'Nog leeg — klik bewerken' : escapeHtml(text)}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderProjects() {
+  const list = document.getElementById('project-list');
+  const active = state.projects.filter(p => p.status !== 'done').length;
+  document.getElementById('project-count').textContent = `${active} actief`;
+  if (!state.projects.length) {
+    list.innerHTML = '<div class="empty">Nog geen projecten — voeg er één toe</div>';
+    return;
+  }
+  list.innerHTML = state.projects.map(p => `
+    <div class="project" style="position: relative;">
+      <div class="project-main" onclick="openProjectEdit('${p.id}')" style="cursor: pointer;">
+        <div class="project-name">${escapeHtml(p.name)}</div>
+        <div class="project-next">
+          <span class="label">Volgende stap</span>${escapeHtml(p.next || '—')}
+        </div>
+      </div>
+      <div class="status-pill status-${p.status || 'active'}">${statusLabel(p.status)}</div>
+      <button class="loop-del" onclick="deleteProject(event,'${p.id}')" style="position:absolute;top:8px;right:8px;" title="Verwijderen">×</button>
+    </div>
+  `).join('');
+}
+
+function renderClients() {
+  const list = document.getElementById('client-list');
+  document.getElementById('client-count').textContent = state.clients.length;
+  if (!state.clients.length) {
+    list.innerHTML = '<div class="empty">Geen klanten vastgelegd</div>';
+    return;
+  }
+  list.innerHTML = state.clients.map(c => `
+    <div class="client" onclick="openClientEdit('${c.id}')">
+      <div class="client-name">${escapeHtml(c.name)}</div>
+      <div class="client-prog">${escapeHtml(c.program || '')}</div>
+      <div class="client-action">${escapeHtml(c.action || '—')}</div>
+    </div>
+  `).join('');
+}
+
+function renderLoops() {
+  const grid = document.getElementById('loops-grid');
+  let totalOpen = 0;
+  Object.values(state.loops).forEach(field => {
+    Object.values(field).forEach(arr => { totalOpen += arr.filter(l => !l.done).length; });
+  });
+  document.getElementById('loop-count').textContent = `${totalOpen} open`;
+
+  // Render 8 field cards (2x4) + overig if it has items
+  let html = '';
+  LOOP_FIELDS.forEach(f => {
+    const fd = state.loops[f.key];
+    let count = 0;
+    Object.values(fd).forEach(arr => { count += arr.filter(l => !l.done).length; });
+    html += renderLoopFieldCard(f.key, f.name, fd, count);
+  });
+  // Overig (shows only if it has items)
+  const overigData = state.loops.overig;
+  let overigCount = 0;
+  Object.values(overigData).forEach(arr => { overigCount += arr.filter(l => !l.done).length; });
+  if (overigCount > 0 || Object.values(overigData).some(arr => arr.length > 0)) {
+    html += renderLoopFieldCard('overig', 'Overig', overigData, overigCount);
+  }
+
+  grid.innerHTML = html;
+}
+
+function renderLoopFieldCard(key, name, fieldData, openCount) {
+  const allItems = [...(fieldData.prio1||[]), ...(fieldData.prio2||[]), ...(fieldData.prio3||[]), ...(fieldData.inbox||[])];
+  let itemsHtml = '';
+
+  // Priority items first
+  const prioConfig = [
+    { key: 'prio1', label: 'Vandaag', color: 'var(--black)', bg: '#F5F0E6' },
+    { key: 'prio2', label: 'Deze week', color: 'var(--accent)', bg: '#FDF8EC' },
+    { key: 'prio3', label: 'Deze maand', color: 'var(--success)', bg: '#F0FAF4' }
+  ];
+
+  const prioLabels = { prio1: '1', prio2: '2', prio3: '3' };
+  prioConfig.forEach(pc => {
+    const items = fieldData[pc.key] || [];
+    items.forEach(l => {
+      itemsHtml += `
+        <div class="loop ${l.done?'done':''}" style="border-left: 3px solid ${pc.color}; padding-left: 8px;">
+          <span style="font-family:'League Spartan',sans-serif;font-weight:700;font-size:11px;color:${pc.color};min-width:14px;flex-shrink:0;">${prioLabels[pc.key]}</span>
+          <div class="loop-check ${l.done?'done':''}" onclick="toggleLoop('${l.id}')">${l.done?'✓':''}</div>
+          <div class="loop-text" style="cursor:pointer;" onclick="editLoop('${l.id}','${key}','${pc.key}')">${escapeHtml(l.text)}</div>
+          <button class="loop-del" onclick="deleteLoop(event,'${l.id}')">×</button>
+        </div>`;
+    });
+  });
+
+  // Inbox items
+  const inbox = fieldData.inbox || [];
+  inbox.forEach(l => {
+    itemsHtml += `
+      <div class="loop ${l.done?'done':''}" style="opacity: 0.7;">
+        <div class="loop-check ${l.done?'done':''}" onclick="toggleLoop('${l.id}')">${l.done?'✓':''}</div>
+        <div class="loop-text" style="cursor:pointer;" onclick="editLoop('${l.id}','${key}','inbox')">${escapeHtml(l.text)}</div>
+        <div style="display:flex;gap:3px;align-items:center;">
+          <button onclick="moveToPrio('${l.id}','${key}','prio1')" style="background:var(--black);color:white;border:none;padding:2px 7px;border-radius:3px;font-size:10px;cursor:pointer;font-family:'League Spartan',sans-serif;font-weight:700;">1</button>
+          <button onclick="moveToPrio('${l.id}','${key}','prio2')" style="background:var(--accent);color:white;border:none;padding:2px 7px;border-radius:3px;font-size:10px;cursor:pointer;font-family:'League Spartan',sans-serif;font-weight:700;">2</button>
+          <button onclick="moveToPrio('${l.id}','${key}','prio3')" style="background:var(--success);color:white;border:none;padding:2px 7px;border-radius:3px;font-size:10px;cursor:pointer;font-family:'League Spartan',sans-serif;font-weight:700;">3</button>
+        </div>
+        <button class="loop-del" onclick="deleteLoop(event,'${l.id}')">×</button>
+      </div>`;
+  });
+
+  if (!allItems.length) {
+    itemsHtml = '<div class="empty" style="padding:10px 0;">Nog geen items</div>';
+  }
+
+  return `
+    <div class="loop-field-card">
+      <div class="loop-field-header">
+        <div class="loop-field-name">${name}</div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          ${openCount > 0 ? `<span class="loop-field-count">${openCount}</span>` : ''}
+          <button class="loop-field-add" onclick="openLoopEdit('${key}')">+</button>
+        </div>
+      </div>
+      ${itemsHtml}
+    </div>`;
+}
+
+function renderDecisions() {
+  const list = document.getElementById('decision-list');
+  document.getElementById('decision-count').textContent = state.decisions.length;
+  if (!state.decisions.length) {
+    list.innerHTML = '<div class="empty">Nog niets vastgelegd</div>';
+    return;
+  }
+  const recent = [...state.decisions].slice(-5).reverse();
+  list.innerHTML = recent.map(d => `
+    <div class="decision" onclick="openDecisionEdit('${d.id}')">
+      <div class="decision-date">${formatDate(d.date)}</div>
+      <div class="decision-text">${escapeHtml(d.text)}</div>
+    </div>
+  `).join('');
+}
+
+function renderContent() {
+  const list = document.getElementById('content-list');
+  document.getElementById('content-count').textContent = state.content.length;
+  if (!state.content.length) {
+    list.innerHTML = '<div class="empty">Nog geen ideeën — dump ze via #content</div>';
+    return;
+  }
+  list.innerHTML = [...state.content].reverse().map(c => `
+    <div class="content-item">
+      <div class="loop-text" style="cursor:pointer;flex:1;" onclick="openContentEdit('${c.id}')">${escapeHtml(c.text)}</div>
+      <button class="loop-del" onclick="deleteContent(event,'${c.id}')" style="opacity:1;font-size:14px;">×</button>
+    </div>
+  `).join('');
+}
+
+function renderWishlist() {
+  const t = document.getElementById('wishlist-text');
+  if (t && t !== document.activeElement) t.value = state.wishlist;
+}
+
+function saveWishlist() {
+  const t = document.getElementById('wishlist-text');
+  if (t) { state.wishlist = t.value; save(); }
+}
+
+// ==================== HELPERS ====================
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function statusLabel(s) {
+  return {active:'Actief',pending:'Wacht',done:'Klaar',paused:'Pauze'}[s]||'Actief';
+}
+function formatDate(iso) {
+  try {
+    const d = new Date(iso);
+    const m = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+    return `${d.getDate()} ${m[d.getMonth()]}`;
+  } catch(e) { return ''; }
+}
+function updateSyncLine() {
+  if (!state.lastUpdate) { document.getElementById('sync-line').textContent = 'Nog niet opgeslagen'; return; }
+  const d = new Date(state.lastUpdate);
+  document.getElementById('sync-line').textContent = `Laatst bewerkt — ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+}
+
+// ==================== INTERACTIONS ====================
+function toggleFocus(i) { state.focusDone[i] = !state.focusDone[i]; save(); renderFocus(); }
+
+function toggleLoop(id) {
+  Object.values(state.loops).forEach(field => {
+    Object.values(field).forEach(arr => {
+      const l = arr.find(x => x.id === id);
+      if (l) l.done = !l.done;
+    });
+  });
+  save(); renderLoops();
+}
+
+function deleteLoop(e, id) {
+  if (e) e.stopPropagation();
+  Object.values(state.loops).forEach(field => {
+    Object.keys(field).forEach(pk => { field[pk] = field[pk].filter(x => x.id !== id); });
+  });
+  save(); renderLoops();
+}
+
+function moveToPrio(itemId, fieldKey, targetPrio) {
+  const field = state.loops[fieldKey];
+  const idx = field.inbox.findIndex(x => x.id === itemId);
+  if (idx === -1) return;
+  const item = field.inbox.splice(idx, 1)[0];
+  field[targetPrio].push(item);
+  save(); renderLoops();
+  toast('Verplaatst');
+}
+
+function deleteProject(e, id) {
+  if (e) e.stopPropagation();
+  if (confirm('Project verwijderen?')) {
+    state.projects = state.projects.filter(x => x.id !== id);
+    save(); renderProjects(); toast('Project verwijderd');
+  }
+}
+
+function deleteContent(e, id) {
+  if (e) e.stopPropagation();
+  state.content = state.content.filter(c => c.id !== id);
+  save(); renderContent();
+  if (modalCtx && modalCtx.type === 'content') closeModal();
+}
+
+// ==================== BRAIN DUMP PARSER ====================
+function processDump() {
+  const raw = document.getElementById('dump-input').value.trim();
+  if (!raw) { toast('Niks om te verwerken'); return; }
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  let counts = { project:0, client:0, loop:0, decision:0, focus:0, content:0 };
+
+  const loopFieldKeys = LOOP_FIELDS.map(f => f.key);
+
+  lines.forEach(line => {
+    const m = line.match(/^#(\w+)\s+(.+)$/i);
+    if (m) {
+      const tag = m[1].toLowerCase();
+      const content = m[2].trim();
+
+      if (tag === 'project') {
+        const parts = content.split(/\s*[—:\-]\s+/);
+        state.projects.push({ id: uid(), name: parts[0], next: parts.slice(1).join(' — ')||'', status:'active' });
+        counts.project++;
+      } else if (tag === 'klant' || tag === 'client') {
+        const parts = content.split(/\s*[—:\-]\s+/);
+        state.clients.push({ id: uid(), name: parts[0], program: '', action: parts.slice(1).join(' — ')||'' });
+        counts.client++;
+      } else if (loopFieldKeys.includes(tag)) {
+        state.loops[tag].inbox.push({ id: uid(), text: content, done: false });
+        counts.loop++;
+      } else if (tag === 'beslissing' || tag === 'inzicht') {
+        state.decisions.push({ id: uid(), text: content, date: new Date().toISOString() });
+        counts.decision++;
+      } else if (tag === 'focus') {
+        const slot = state.focus.findIndex(f => !f || !f.trim());
+        if (slot >= 0) { state.focus[slot] = content; state.focusDone[slot] = false; counts.focus++; }
+        else { state.loops.overig.inbox.push({ id: uid(), text: content, done: false }); counts.loop++; }
+      } else if (tag === 'content') {
+        state.content.push({ id: uid(), text: content, date: new Date().toISOString() });
+        counts.content++;
+      } else {
+        // Unknown tag → overig
+        state.loops.overig.inbox.push({ id: uid(), text: line, done: false });
+        counts.loop++;
+      }
+    } else {
+      state.loops.overig.inbox.push({ id: uid(), text: line, done: false });
+      counts.loop++;
+    }
+  });
+
+  save(); renderAll();
+  document.getElementById('dump-input').value = '';
+  const parts = [];
+  if (counts.project) parts.push(`${counts.project} project${counts.project>1?'en':''}`);
+  if (counts.client) parts.push(`${counts.client} klant${counts.client>1?'en':''}`);
+  if (counts.loop) parts.push(`${counts.loop} loop${counts.loop>1?'s':''}`);
+  if (counts.decision) parts.push(`${counts.decision} beslissing${counts.decision>1?'en':''}`);
+  if (counts.focus) parts.push(`${counts.focus} focus-item`);
+  if (counts.content) parts.push(`${counts.content} content idee${counts.content>1?'ën':''}`);
+  toast('Verwerkt: ' + (parts.join(', ') || 'niks'));
+}
+
+// ==================== MODALS ====================
+let modalCtx = null;
+
+function openModal() { document.getElementById('modal-bg').classList.add('show'); }
+function closeModal(e) {
+  if (e && e.target && e.target.id !== 'modal-bg') return;
+  document.getElementById('modal-bg').classList.remove('show');
+  modalCtx = null;
+}
+
+function openFocusEdit() {
+  modalCtx = { type: 'focus' };
+  document.getElementById('modal-title').textContent = 'Focus van vandaag';
+  document.getElementById('modal-body').innerHTML = `
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-style:italic;">Max drie. Dit is wat vandaag echt telt.</div>
+    ${[0,1,2].map(i => `<div class="field"><label>Focus ${i+1}</label><input type="text" id="focus-${i}" value="${escapeHtml(state.focus[i]||'')}" placeholder="Wat moet vandaag af?"></div>`).join('')}
+  `;
+  openModal();
+}
+
+function openProjectEdit(id) {
+  const p = id ? state.projects.find(x => x.id === id) : { id: uid(), name:'', next:'', status:'active', _new:true };
+  modalCtx = { type: 'project', data: p };
+  document.getElementById('modal-title').textContent = p._new ? 'Nieuw project' : 'Project bewerken';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Naam</label><input type="text" id="p-name" value="${escapeHtml(p.name)}"></div>
+    <div class="field"><label>Volgende stap</label><textarea id="p-next">${escapeHtml(p.next)}</textarea></div>
+    <div class="field"><label>Status</label><select id="p-status">
+      <option value="active" ${p.status==='active'?'selected':''}>Actief</option>
+      <option value="pending" ${p.status==='pending'?'selected':''}>Wacht</option>
+      <option value="paused" ${p.status==='paused'?'selected':''}>Pauze</option>
+      <option value="done" ${p.status==='done'?'selected':''}>Klaar</option>
+    </select></div>
+  `;
+  openModal();
+}
+
+function openClientEdit(id) {
+  const c = id ? state.clients.find(x => x.id === id) : { id: uid(), name:'', program:'', action:'', _new:true };
+  modalCtx = { type: 'client', data: c };
+  document.getElementById('modal-title').textContent = c._new ? 'Nieuwe klant' : 'Klant bewerken';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Naam</label><input type="text" id="c-name" value="${escapeHtml(c.name)}"></div>
+    <div class="field"><label>Programma / traject</label><input type="text" id="c-program" value="${escapeHtml(c.program)}" placeholder="1-on-1, Playground Club, EXM..."></div>
+    <div class="field"><label>Volgende actie</label><textarea id="c-action">${escapeHtml(c.action)}</textarea></div>
+  `;
+  openModal();
+}
+
+function openLoopEdit(field = 'overig') {
+  modalCtx = { type: 'loop', data: { field } };
+  document.getElementById('modal-title').textContent = 'Nieuwe loop';
+  const allFields = [...LOOP_FIELDS, { key: 'overig', name: 'Overig' }];
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Veld</label><select id="l-field">
+      ${allFields.map(f => `<option value="${f.key}" ${f.key===field?'selected':''}>${f.name}</option>`).join('')}
+    </select></div>
+    <div class="field"><label>Wat moet gebeuren</label><textarea id="l-text" autofocus placeholder="Landt eerst in inbox, daarna prioriteren...
+Bulk invoer mogelijk:
+- taak 1
+- taak 2"></textarea></div>
+    <div style="font-size:11px;color:var(--muted);font-style:italic;">Items landen in de inbox. Daarna kun je prioriteren met 1/2/3 buttons.</div>
+  `;
+  openModal();
+}
+
+function editLoop(itemId, fieldKey, prioKey) {
+  const field = state.loops[fieldKey];
+  const item = (field[prioKey]||[]).find(i => i.id === itemId);
+  if (!item) return;
+  modalCtx = { type: 'edit-loop', data: { id: itemId, fieldKey, prioKey } };
+  document.getElementById('modal-title').textContent = 'Loop bewerken';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Wat moet gebeuren</label><textarea id="edit-loop-text" autofocus>${escapeHtml(item.text)}</textarea></div>
+  `;
+  openModal();
+}
+
+function openDecisionEdit(id) {
+  const d = id ? state.decisions.find(x => x.id === id) : { id: uid(), text:'', date: new Date().toISOString(), _new:true };
+  modalCtx = { type: 'decision', data: d };
+  document.getElementById('modal-title').textContent = d._new ? 'Beslissing / inzicht vastleggen' : 'Bewerken';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Wat wil je onthouden</label><textarea id="d-text" style="min-height:100px;">${escapeHtml(d.text)}</textarea></div>
+    ${!d._new ? `<button class="btn btn-ghost" style="color:red;border-color:red;" onclick="deleteDecision('${d.id}')">Verwijderen</button>` : ''}
+  `;
+  openModal();
+}
+
+function deleteDecision(id) {
+  if (!confirm('Verwijderen?')) return;
+  state.decisions = state.decisions.filter(d => d.id !== id);
+  save(); renderDecisions(); closeModal();
+}
+
+function openContentEdit(id) {
+  const c = id ? state.content.find(x => x.id === id) : { id: uid(), text:'', date: new Date().toISOString(), _new:true };
+  modalCtx = { type: 'content', data: c };
+  document.getElementById('modal-title').textContent = c._new ? 'Nieuw content idee' : 'Idee bewerken';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="field"><label>Idee / vonk</label><textarea id="ct-text" style="min-height:100px;" autofocus>${escapeHtml(c.text)}</textarea></div>
+    ${!c._new ? `<button class="btn btn-ghost" style="color:red;border-color:red;" onclick="deleteContent(event,'${c.id}')">Verwijderen</button>` : ''}
+  `;
+  openModal();
+}
+
+function saveModal() {
+  if (!modalCtx) return;
+  const t = modalCtx.type;
+
+  if (t === 'name') {
+    const val = document.getElementById('edit-name').value.trim();
+    const biz = document.getElementById('edit-biz').value.trim();
+    if (!val) { toast('Vul een naam in'); return; }
+    state.userName = val;
+    state.bizName = biz;
+    document.getElementById('header-name').textContent = val;
+    document.getElementById('header-biz').textContent = biz || 'Je bedrijfsnaam';
+  } else if (t === 'focus') {
+    for (let i=0; i<3; i++) {
+      const v = document.getElementById('focus-'+i).value.trim();
+      if (v !== state.focus[i]) { state.focus[i] = v; state.focusDone[i] = false; }
+    }
+  } else if (t === 'project') {
+    const d = modalCtx.data;
+    d.name = document.getElementById('p-name').value.trim();
+    d.next = document.getElementById('p-next').value.trim();
+    d.status = document.getElementById('p-status').value;
+    if (!d.name) { toast('Geef een naam'); return; }
+    if (d._new) { delete d._new; state.projects.push(d); }
+  } else if (t === 'client') {
+    const d = modalCtx.data;
+    d.name = document.getElementById('c-name').value.trim();
+    d.program = document.getElementById('c-program').value.trim();
+    d.action = document.getElementById('c-action').value.trim();
+    if (!d.name) { toast('Geef een naam'); return; }
+    if (d._new) { delete d._new; state.clients.push(d); }
+  } else if (t === 'loop') {
+    const rawText = document.getElementById('l-text').value.trim();
+    const selectedField = document.getElementById('l-field').value;
+    if (!rawText) { toast('Leeg'); return; }
+    const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    let items = [];
+    if (lines.length > 1 && (lines[0].startsWith('-') || lines[0].startsWith('#'))) {
+      lines.forEach(line => {
+        let text = line.replace(/^[-#]\s*/, '').trim();
+        if (text) items.push({ id: uid(), text, done: false });
+      });
+    } else {
+      items.push({ id: uid(), text: rawText, done: false });
+    }
+    items.forEach(item => state.loops[selectedField].inbox.push(item));
+    save(); renderAll(); closeModal();
+    toast(items.length > 1 ? `${items.length} loops toegevoegd` : 'Loop toegevoegd');
+    return;
+  } else if (t === 'edit-loop') {
+    const data = modalCtx.data;
+    const newText = document.getElementById('edit-loop-text').value.trim();
+    if (!newText) { toast('Leeg'); return; }
+    const item = (state.loops[data.fieldKey][data.prioKey]||[]).find(i => i.id === data.id);
+    if (item) item.text = newText;
+  } else if (t === 'decision') {
+    const d = modalCtx.data;
+    d.text = document.getElementById('d-text').value.trim();
+    if (!d.text) { toast('Leeg'); return; }
+    if (d._new) { delete d._new; state.decisions.push(d); }
+  } else if (t === 'content') {
+    const d = modalCtx.data;
+    d.text = document.getElementById('ct-text').value.trim();
+    if (!d.text) { toast('Leeg'); return; }
+    if (d._new) { delete d._new; state.content.push(d); }
+  }
+
+  save(); renderAll(); closeModal();
+  toast('Opgeslagen');
+}
+
+// ==================== TOAST ====================
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ==================== INIT ====================
+load();
+checkName();
+renderAll();
+document.getElementById('dump-input').addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') processDump();
+});
+</script>
+</body>
+</html>
