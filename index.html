@@ -903,6 +903,17 @@ Geen prefix? Dan landt het in OVERIG inbox."></textarea>
       Niets handmatig overzetten. Dit is een filter, geen archief.
     </div>
   </div>
+
+  <!-- BACKUP -->
+  <div style="margin-top: 24px; text-align: center; padding: 20px; border-top: 1px solid var(--border);">
+    <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-weight: 600;">Backup & herstel</div>
+    <div style="font-size: 12px; color: var(--text-soft); margin-bottom: 14px;">Je data staat lokaal in je browser. Maak regelmatig een backup zodat je niets kwijtraakt.</div>
+    <div style="display: flex; gap: 10px; justify-content: center;">
+      <button class="btn btn-ghost" onclick="exportData()">Exporteer backup</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">Importeer backup</button>
+    </div>
+    <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)">
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -1547,6 +1558,46 @@ function toast(msg) {
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ==================== EXPORT / IMPORT ====================
+function exportData() {
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const name = (state.userName || 'hq').toLowerCase().replace(/\s+/g, '-');
+  const date = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `hq-backup-${name}-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Backup gedownload');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!imported.focus && !imported.loops && !imported.projects) {
+        toast('Ongeldig backup bestand');
+        return;
+      }
+      if (!confirm('Dit vervangt al je huidige data. Doorgaan?')) return;
+      state = { ...state, ...imported };
+      save();
+      renderAll();
+      checkName();
+      toast('Backup hersteld!');
+    } catch(err) {
+      toast('Fout bij importeren — controleer het bestand');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
 }
 
 // ==================== INIT ====================
